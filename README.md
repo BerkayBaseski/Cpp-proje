@@ -1,2 +1,2 @@
 # Cpp-proje
- GitCrypt: Dosya Şifreleme Uygulaması
+ GitCrypt: Dosya Şifreleme Uygulamasıdır
