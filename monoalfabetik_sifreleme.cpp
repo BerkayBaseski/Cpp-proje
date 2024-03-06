@@ -15,7 +15,7 @@ string encrypt(string plaintext, string key) {
             char encrypted_char = (key[offset % key_length] - 'A' + c - base) % 26 + base;
             ciphertext += encrypted_char;
         } else {
-            ciphertext += c; // Alfabetik olmayan karakterler deðiþmeden kalýr
+            ciphertext += c; // Alfabetik olmayan karakterler degismeden kalir
         }
     }
     
@@ -34,7 +34,7 @@ string decrypt(string ciphertext, string key) {
             char decrypted_char = (c - base - (toupper(key[i % key_length]) - 'A') + 26) % 26 + base;
             plaintext += decrypted_char;
         } else {
-            plaintext += c; // Alfabetik olmayan karakterler deðiþmeden kalýr
+            plaintext += c; // Alfabetik olmayan karakterler degismeden kalir
         }
     }
     
