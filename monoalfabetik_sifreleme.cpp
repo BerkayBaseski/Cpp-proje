@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cctype> // for isalpha
+#include <cctype> 
 using namespace std;
 
 string encrypt(string plaintext, string key) {
@@ -15,7 +15,7 @@ string encrypt(string plaintext, string key) {
             char encrypted_char = (key[offset % key_length] - 'A' + c - base) % 26 + base;
             ciphertext += encrypted_char;
         } else {
-            ciphertext += c; // Alfabetik olmayan karakterler değişmeden kalır
+            ciphertext += c; // Alfabetik olmayan karakterler deÃ°iÃ¾meden kalÃ½r
         }
     }
     
@@ -34,7 +34,7 @@ string decrypt(string ciphertext, string key) {
             char decrypted_char = (c - base - (toupper(key[i % key_length]) - 'A') + 26) % 26 + base;
             plaintext += decrypted_char;
         } else {
-            plaintext += c; // Alfabetik olmayan karakterler değişmeden kalır
+            plaintext += c; // Alfabetik olmayan karakterler deÃ°iÃ¾meden kalÃ½r
         }
     }
     
