@@ -29,7 +29,7 @@ string decrypt(string ciphertext, string key) {
     for (int i = 0; i < ciphertext.length(); i++) {
         char c = ciphertext[i];
         if (isalpha(c)) {
-            char base = std::isupper(c) ? 'A' : 'a';
+            char base = isupper(c) ? 'A' : 'a';
             int offset = c - base;
             char decrypted_char = (c - base - (toupper(key[i % key_length]) - 'A') + 26) % 26 + base;
             plaintext += decrypted_char;
