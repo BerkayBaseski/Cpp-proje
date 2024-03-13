@@ -1,12 +1,100 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <cctype> 
 #include <locale.h>
 #include <thread> 
 
 using namespace std;
-//Fonksiyonlar
+//Berkay Dosya Şifreleme ve Çözme
+string encryptDecrypt(const string& message, const string& harfler, const string& anahtar) {
+    string result = "";
+    for (size_t i = 0; i < message.length(); ++i) {
+        size_t index = harfler.find(tolower(message.at(i)));
+        if (index != string::npos) {
+            result += (isupper(message.at(i)) ? toupper(anahtar.at(index)) : anahtar.at(index));
+        }
+        else {
+            result += message.at(i); // Harf değilse direkt kopyala
+        }
+    }
+    return result;
+}
 
+void berkaydosyaSifrele(const string& dosyaAdi) {
+    setlocale(LC_ALL, "Turkish");
+
+    string harfler = "abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGHIİJKLMNOÖPRSŞTUÜVYZ";
+    string anahtar = "müfıvejihpğaodyrubşgzcötsçlnkMÜFIVEJİHPĞAODYRUBŞGZCÖTSÇLNK";
+
+    ifstream dosya(dosyaAdi);
+    if (!dosya) {
+        cerr << "Dosya açılamadı." << endl;
+        return;
+    }
+
+    string icerik((istreambuf_iterator<char>(dosya)), istreambuf_iterator<char>());
+    dosya.close();
+
+    string sifreliIcerik = encryptDecrypt(icerik, harfler, anahtar);
+
+    ofstream sifreliDosya(dosyaAdi); // Aynı dosyayı yazma modunda açma
+    if (!sifreliDosya) {
+        cerr << "Dosya açılamadı." << endl;
+        return;
+    }
+    sifreliDosya << sifreliIcerik; // Şifrelenmiş içeriği dosyaya yazma
+    sifreliDosya.close();
+
+    string message = "...";
+    int repetitionDuration = 5000;
+    cout << "Dosyanız şifreleniyor";
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(repetitionDuration / message.length()));
+    }
+
+    cout << "Dosya şifrelendi ve güncellendi." << endl;
+}
+
+void berkaydosyaCoz(const string& dosyaAdi) {
+    setlocale(LC_ALL, "Turkish");
+
+    string harfler = "abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGHIİJKLMNOÖPRSŞTUÜVYZ";
+    string anahtar = "müfıvejihpğaodyrubşgzcötsçlnkMÜFIVEJİHPĞAODYRUBŞGZCÖTSÇLNK";
+
+    ifstream dosya(dosyaAdi);
+    if (!dosya) {
+        cerr << "Dosya açılamadı." << endl;
+        return;
+    }
+
+    string icerik((istreambuf_iterator<char>(dosya)), istreambuf_iterator<char>());
+    dosya.close();
+
+    string cozulmusIcerik = encryptDecrypt(icerik, anahtar, harfler);
+
+    ofstream cozulmusDosya(dosyaAdi); // Aynı dosyayı yazma modunda açma
+    if (!cozulmusDosya) {
+        cerr << "Dosya açılamadı." << endl;
+        return;
+    }
+    cozulmusDosya << cozulmusIcerik; // Çözülen içeriği dosyaya yazma
+    cozulmusDosya.close();
+
+    string message = "...";
+    int repetitionDuration = 5000;
+    cout << "Şifre çözülüyor" << endl;
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(repetitionDuration / message.length()));
+    }
+
+    cout << "Dosya çözüldü ve güncellendi." << endl;
+}
+//Metehan dosya şifreleme ve çözme
+
+//Uğur dosya şifreleme ve çözme
 int main()
 {
     int secenek, secenek2;
@@ -33,7 +121,7 @@ int main()
                 break;
             case 2:
                 break;
-            case 3:
+            case 3: berkaydosyaSifrele(dosya_adi);
                 break;
             case 4:
                 break;                
@@ -47,7 +135,7 @@ int main()
             break;
         case 2:
             break;
-        case 3:
+        case 3: berkaydosyaCoz(dosya_adi);
             break;
         case 4:
             break;
