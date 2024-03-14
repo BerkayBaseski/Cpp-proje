@@ -194,6 +194,106 @@ void ugurdecrypt_file(const string& file_name, const string& key) {
 
     cout << "Dosya basariyla cozuldu: decrypted_" << file_name << endl;
 }
+//Metehan dosya şifreleme ve çözme
+string metehandosyaIcerigiOku(const string& dosya_adi) 
+{
+    ifstream dosya(dosya_adi);
+    if (!dosya.is_open()) 
+    {
+        cerr << "Hata: Dosya acilamadi." << endl;
+        return "";
+    }
+
+    string icerik;
+    string satir;
+    while (getline(dosya, satir)) 
+    {
+        icerik += satir + "\n";
+    }
+
+    dosya.close(); 
+
+    return icerik; 
+}
+// İntegral fonksiyonu girilen a,b,c,sbt,key degerlerine göre olusturulur.
+int integral(int x,int y,int z, int d,int k) //fonksiyondaki degerler sırasıyla x=a,y=b,z=c,sbt=d,k=key
+{
+  int integralSabiti=d;  
+  int fx=(x*(pow(k,3)/3))+(y*(pow(k,2)/2))+(z*k)+integralSabiti;
+  return fx;
+}
+int turev(int x,int y,int k)
+{
+  return 2*x*k+y;
+}
+string caesarSifreleme(string mesaj, int anahtar)
+{
+    string sonuc = "";  //Boş bir dizi olan “sonuc“ tanımlandı ve dizi, şifrelenmiş metini biriktirmek için kullanıldı.
+    for (int i = 0; i < mesaj.length(); i++) 
+    {
+        if (isupper(mesaj[i])) //Her karakterin büyük harf mi yoksa küçük harf mi olduğunu kontrol etmek için “ispper” işlevi kullanıldı.
+        {
+            sonuc += char(int(mesaj[i] + anahtar - 65) % 26 + 65);  
+            /*ASCII değeri üzerine anahtar eklenir, ardından 97 çıkarılır (bu, küçük harf karakterlerinin 
+            a’dan başladığı konumu temsil eder), sonrasında 26 ile modülenir ve sonuç tekrar 65 eklenerek asıl buyuk harf   karakterine dönüştürülür.*/
+        }
+        else 
+        {
+            sonuc += char(int(mesaj[i] + anahtar - 97) % 26 + 97);
+        }
+    }
+    return sonuc;
+}
+string caesarDeSifreleme(string mesaj, int anahtar)
+{
+    string sonuc = "";  //Boş bir dize olan “sonuc“ tanımlandı ve dize, şifrelenmiş metini biriktirmek için kullanıldı.
+    for (int i = 0; i < mesaj.length(); i++) 
+    {
+        if (isupper(mesaj[i])) //Her karakterin büyük harf mi yoksa küçük harf mi olduğunu kontrol etmek için “ispper” işlevi kullanıldı.
+        {
+            sonuc += char(int(mesaj[i]  - anahtar - 65+26) % 26 + 'A');  
+            /*ASCII değeri üzerine anahtar çıkarılır, ardından 97 çıkarılır (bu, küçük harf karakterlerinin 
+            a’dan başladığı konumu temsil eder), sonrasında 26 ile modülenir ve sonuç tekrar alfabnin başındaki karektere göre eklenerek asıl buyuk harf karakterine dönüştürülür.*/
+        }
+        else 
+        {
+            sonuc += char(int(mesaj[i] - anahtar - 97+26) % 26 + 'a');
+        }
+    }
+    return sonuc;
+}
+void metehansifreleme(string metin)
+{
+    int a,b,c,key,sbt; // sbt integral alma islemini gerceklestirebilmemiz icin gerekli  deger
+    cout<<"ax^2+bx+c seklindeki 2. dereceden denklemin a,b,c degerlerini istediginiz gibi giriniz.\n";
+    cout<<"a:";
+    cin>>a;
+    cout<<"b:";
+    cin>>b;
+    cout<<"c:";
+    cin>>c;
+    cout<<"Anahtar gir:";
+    cin>>key;
+    sbt=a+b+c; //integral sabitini kullanıcının girdigi a+b+c degerlerinin toplamı olarak atandı
+    int anahtar=integral(a,b,c,sbt,key)-turev(a,b,key); //anahtar integral ve türev değerlerinin farkına esit
+    cout<<"\nSifrelenmis dosya içeriği:"<<caesarSifreleme(metin,anahtar);
+}
+void metehandeSifreleme(string metin)
+{
+    int a,b,c,key,sbt; // sbt integral alma islemini gerceklestirebilmemiz icin gerekli  deger
+    cout<<"ax^2+bx+c seklindeki 2. dereceden denklemin a,b,c degerlerini istediginiz gibi giriniz.\n";
+    cout<<"a:";
+    cin>>a;
+    cout<<"b:";
+    cin>>b;
+    cout<<"c:";
+    cin>>c;
+    cout<<"Anahtar gir:";
+    cin>>key;
+    sbt=a+b+c; //integral sabitini kullanıcının girdigi a+b+c degerlerinin toplamı olarak atandı
+    int anahtar=integral(a,b,c,sbt,key)-turev(a,b,key); //anahtar integral ve türev değerlerinin farkına esit
+    cout<<"\nDeSifrelenmis dosya içeriği:"<<caesarDeSifreleme(metin,anahtar);
+}
 int main()
 {
     setlocale(LC_ALL, "Turkish");
@@ -219,7 +319,8 @@ int main()
         switch (secenek2) {
         case 1:
             switch (secenek) {
-            case 1:
+            case 1:metehandosyaIcerigiOku(dosya_adi);
+                   metehansifreleme(dosya_adi);
                 break;
             case 2: cout << "Lutfen kullanmak istediginiz anahtari girin: " << endl;
                 cin.ignore(); // Önceki cin'in new line karakterini temizle
@@ -237,7 +338,8 @@ int main()
             break; // switch (secenek) bloğundan çık
         case 2:
             switch (secenek) {
-            case 1:
+            case 1:metehandosyaIcerigiOku(dosya_adi);
+                   metehandeSifreleme(dosya_adi);
                 break;
             case 2:    cout << "Lutfen kullanmak istediginiz anahtari girin: " << endl;
                 cin.ignore(); // Önceki cin'in new line karakterini temizle
