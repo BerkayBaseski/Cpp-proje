@@ -273,8 +273,7 @@ void metehansifreleme(string metin)
     cin>>b;
     cout<<"c:";
     cin>>c;
-    cout<<"Anahtar gir:";
-    cin>>key;
+    key=1;
     sbt=a+b+c; //integral sabitini kullanıcının girdigi a+b+c degerlerinin toplamı olarak atandı
     int anahtar=integral(a,b,c,sbt,key)-turev(a,b,key); //anahtar integral ve türev değerlerinin farkına esit
     cout<<"\nSifrelenmis dosya içeriği:"<<caesarSifreleme(metin,anahtar);
@@ -289,8 +288,7 @@ void metehandeSifreleme(string metin)
     cin>>b;
     cout<<"c:";
     cin>>c;
-    cout<<"Anahtar gir:";
-    cin>>key;
+    key=1;
     sbt=a+b+c; //integral sabitini kullanıcının girdigi a+b+c degerlerinin toplamı olarak atandı
     int anahtar=integral(a,b,c,sbt,key)-turev(a,b,key); //anahtar integral ve türev değerlerinin farkına esit
     cout<<"\nDeSifrelenmis dosya içeriği:"<<caesarDeSifreleme(metin,anahtar);
