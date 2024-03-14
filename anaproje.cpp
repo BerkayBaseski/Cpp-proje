@@ -4,6 +4,7 @@
 #include <cctype> 
 #include <locale.h>
 #include <thread> 
+#include <math.h>
 
 using namespace std;
 
