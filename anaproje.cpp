@@ -167,6 +167,14 @@ void ugurencrypt_file(const string& file_name, const string& key) {
     output_file << encrypted_text;
     output_file.close();
 
+    string message = "...";
+    int zaman = 5000;
+    cout << "Dosyanız şifreleniyor";
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(zaman / message.length()));
+    }
+
     cout << "Dosya basariyla sifrelendi: sifrelenmis_" << file_name << endl;
 }
 
@@ -195,6 +203,14 @@ void ugurdecrypt_file(const string& file_name, const string& key) {
     }
     output_file << decrypted_text;
     output_file.close();
+
+    string message = "...";
+    int zaman = 5000;
+    cout << "Şifre çözülüyor";
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(zaman / message.length()));
+    }
 
     cout << "Dosya basariyla cozuldu: cozulmus_" << original_file_name << endl;
 }
@@ -273,6 +289,14 @@ void metehansifreleme(const string& dosya_adi) {
     sifreliDosya << sifreliIcerik;
     sifreliDosya.close();
 
+    string message = "...";
+    int zaman = 5000;
+    cout << "Dosyanız şifreleniyor";
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(zaman / message.length()));
+    }
+
     cout << "Dosya şifrelendi ve sifrelenmis_" << dosya_adi << " adında kaydedildi." << endl;
 }
 
@@ -300,6 +324,14 @@ void metehandeSifreleme(const string& dosya_adi) {
     }
     cozulmusDosya << cozulmusIcerik;
     cozulmusDosya.close();
+
+    string message = "...";
+    int zaman = 5000;
+    cout << "Şifre çözülüyor";
+    for (size_t i = 0; i < message.length(); ++i) {
+        cout << message[i];
+        this_thread::sleep_for(chrono::milliseconds(zaman / message.length()));
+    }
 
     cout << "Dosya çözüldü ve cozulmus_" << dosya_adi << " adında kaydedildi." << endl;
 }
